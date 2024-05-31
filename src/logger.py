@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import sys
 
 
@@ -21,3 +23,7 @@ class Logger:
         self.msg(f"Error: {msg}")
         if do_exit:
             sys.exit(5)
+
+if __name__ == '__main__':
+    logger=Logger(verbose=1)
+    logger.msg_info(msg="test")
