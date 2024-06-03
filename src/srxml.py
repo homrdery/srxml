@@ -40,7 +40,7 @@ try:
     # Цикл который парсит файлы и передаёт их в опции поиска или замены
     for filename in filenames:
         logger.msg_info(filename)
-        tree = Xml(filename)
+        tree = Xml.parse(filename)
         if tree.search(tag, value):
             if parser.options.search:
                 print(tree.filename)

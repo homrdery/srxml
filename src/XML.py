@@ -1,21 +1,40 @@
 from xml.etree import ElementTree
+from io import StringIO
+
 
 class Xml:
     """
     Класс для работы с XML файлами
     гмккт искать и устанавливать узлы в файле
     """
+    @staticmethod
+    def parse(filename: str):
+        obj = Xml()
+        obj.filename = filename
+        obj.xml = ElementTree.parse(filename)
+        obj.root = obj.xml.getroot()
 
-    def __init__(self, filename):
-        """
+        return obj
 
-        :param filename: имя файла или объкт файл с xml
-        """
-        self.filename = filename
-        self.xml = ElementTree.parse(filename)
-        self.root = self.xml.getroot()
+    @staticmethod
+    def fromstring(text: str):
+        obj = Xml()
 
-    def search(self, tag:str, value:str) -> bool:
+        obj.xml = ElementTree.parse(StringIO(text))
+        obj.root = obj.xml.getroot()
+        return obj
+    # def __init__(self, filename=None):
+    #     """
+    #
+    #     :param filename: имя файла или объкт файл с xml
+    #     """
+    #     self.filename = filename
+    #
+    #     if filename:
+    #         self.xml = ElementTree.parse(filename)
+    #         self.root = self.xml.getroot()
+
+    def search(self, tag: str, value: str) -> bool:
         """
         Ищет значение в дереве XML
         :param tag: тег в котором надо найти заднное значение-(value)
@@ -28,7 +47,7 @@ class Xml:
                 return True
         return False
 
-    def replace(self, tag:str, value:str, write:bool = True):
+    def replace(self, tag: str, value: str, write: bool = True):
         """
         заменяет значения в теле выбранного теге
         :param write:
@@ -48,4 +67,5 @@ class Xml:
             self.xml.write(self.filename)
 
     def tostring(self):
-        return ElementTree.tostring(self.xml.getroot(),"UTF-8").decode("UTF-8")
+        return ElementTree.tostring(self.xml.getroot(), "UTF-8").decode("UTF-8")
+
