@@ -17,29 +17,33 @@ class Parser(OptionParser):
 
         self.params = self.prepare()
 
-
+    #функционал опций
     def prepare(self):
-        stag = "User_ID"
-        sval = self.args[0]
+        stag = "User_ID" #СПЕЦИАЛЬНОЕ ИМЯ ТЕГа ДЛЯ ОПЦИИ ПОИСКА ПО ID
+        sval = self.args[0] #значение тега которое ищем/
 
         if self.options.search:
             if self.options.user_id_search:
-                files = self.args[1:]
+                # опция поиска по ID
+                files = self.args[1:]#файлы в которых производится поиск
             else:
-                stag = self.args[0]
-                sval = self.args[1]
-                files = self.args[2:]
+                # обычный поиск
+                stag = self.args[0]#имя тега в котором ищем значение
+                sval = self.args[1]#значение тега которое ищем
+                files = self.args[2:]#файлы в которых производится поиск
 
             return stag, sval, files
         else:
             if self.options.user_id_search:
-                rtag = self.args[1]
-                rval = self.args[2]
-                files = self.args[3:]
+                #опция замены + опция --user
+                rtag = self.args[1]#иимя тега на которое мы заменяем в случае поиска по id
+                rval = self.args[2]#значение тега на которое мы заменяем в случае поиска по id
+                files = self.args[3:]#файлы в которых производится поиск
             else:
-                stag = self.args[0]
-                sval = self.args[1]
-                rtag = self.args[2]
-                rval = self.args[3]
-                files = self.args[4:]
+                # опция замены
+                stag = self.args[0]#имя тега в котором производится замена
+                sval = self.args[1]#первичное значение тега которое в последствии поменяется
+                rtag = self.args[2]#иимя тега на которое мы заменяем
+                rval = self.args[3]#значение тега на которое мы заменяем
+                files = self.args[4:]#файлы в которых производится поиск
             return stag, sval, rtag, rval, files
